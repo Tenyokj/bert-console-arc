@@ -1,3 +1,5 @@
+![LOGO](/public/bert-console-banner.png)
+
 # BERT Console
 
 **V0.1.0 Beta · Arc Testnet · read-only**
