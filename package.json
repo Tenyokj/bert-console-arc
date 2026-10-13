@@ -1,0 +1,33 @@
+{
+  "name": "bert-console",
+  "version": "0.1.0-beta.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "format": "prettier --write src",
+    "format:check": "prettier --check src",
+    "smoke": "node scripts/smoke.mjs"
+  },
+  "dependencies": {
+    "graphql": "^17.0.2",
+    "lucide-react": "^1.55.0",
+    "next": "^16.4.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/three": "^0.186.0",
+    "eslint": "^9",
+    "eslint-config-next": "^16.4.0",
+    "playwright-core": "^1.64.0",
+    "prettier": "^3.9.10",
+    "typescript": "5.6.3"
+  }
+}

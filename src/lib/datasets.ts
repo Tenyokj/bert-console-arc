@@ -1,0 +1,527 @@
+import type { DataSource } from "@/lib/protocol";
+
+export type ColumnKind =
+  | "text"
+  | "address"
+  | "tx"
+  | "amount"
+  | "count"
+  | "date"
+  | "status"
+  | "boolean"
+  | "proposalMode";
+export type DatasetColumn = {
+  key: string;
+  label: string;
+  kind: ColumnKind;
+  select: string;
+};
+export type Dataset = {
+  id: string;
+  source: DataSource;
+  entity: string;
+  label: string;
+  group: string;
+  description: string;
+  orderBy: string;
+  columns: DatasetColumn[];
+};
+
+const col = (
+  key: string,
+  label: string,
+  kind: ColumnKind = "text",
+  select = key,
+): DatasetColumn => ({
+  key,
+  label,
+  kind,
+  select,
+});
+
+export const datasets: Dataset[] = [
+  {
+    id: "v2-ideas",
+    source: "v2",
+    entity: "ideas",
+    label: "Ideas",
+    group: "Funding",
+    description: "Published ideas, authors, funding thresholds and status.",
+    orderBy: "createdAt",
+    columns: [
+      col("id", "Idea ID"),
+      col("title", "Title"),
+      col("author", "Author", "address"),
+      col("minimumNetFunding", "Minimum", "amount"),
+      col("totalVotes", "Votes", "count"),
+      col("createdAt", "Created", "date"),
+    ],
+  },
+  {
+    id: "v2-rounds",
+    source: "v2",
+    entity: "rounds",
+    label: "Funding rounds",
+    group: "Funding",
+    description: "Round windows, winning ideas and capital committed.",
+    orderBy: "updatedAtBlock",
+    columns: [
+      col("id", "Round"),
+      col("active", "Active", "boolean"),
+      col("settled", "Settled", "boolean"),
+      col("totalPledged", "Pledged", "amount"),
+      col("netFunding", "Net funding", "amount"),
+      col("winningIdeaId", "Winner"),
+      col("endTime", "End", "date"),
+    ],
+  },
+  {
+    id: "v2-votes",
+    source: "v2",
+    entity: "votes",
+    label: "Votes",
+    group: "Voting",
+    description: "Individual votes recorded during funding rounds.",
+    orderBy: "timestamp",
+    columns: [
+      col("roundId", "Round"),
+      col("ideaId", "Idea"),
+      col("voter", "Voter", "address"),
+      col("amount", "Weight", "amount"),
+      col("timestamp", "Time", "date"),
+      col("txHash", "Transaction", "tx"),
+    ],
+  },
+  {
+    id: "v2-pledges",
+    source: "v2",
+    entity: "pledges",
+    label: "Pledges",
+    group: "Voting",
+    description: "USDC backing provided to ideas by round participants.",
+    orderBy: "timestamp",
+    columns: [
+      col("roundId", "Round"),
+      col("ideaId", "Idea"),
+      col("voter", "Backer", "address"),
+      col("amount", "Pledged", "amount"),
+      col("timestamp", "Time", "date"),
+      col("txHash", "Transaction", "tx"),
+    ],
+  },
+  {
+    id: "v2-refunds",
+    source: "v2",
+    entity: "pledgeRefunds",
+    label: "Pledge refunds",
+    group: "Voting",
+    description: "Returned conditional pledges and failed-round claims.",
+    orderBy: "timestamp",
+    columns: [
+      col("roundId", "Round"),
+      col("ideaId", "Idea"),
+      col("voter", "Backer", "address"),
+      col("amount", "Refunded", "amount"),
+      col("timestamp", "Time", "date"),
+      col("txHash", "Transaction", "tx"),
+    ],
+  },
+  {
+    id: "v2-grants",
+    source: "v2",
+    entity: "grantPayouts",
+    label: "Grant payouts",
+    group: "Execution",
+    description: "Winning grants and released tranche balances.",
+    orderBy: "updatedAtBlock",
+    columns: [
+      col("roundId", "Round"),
+      col("ideaId", "Idea"),
+      col("author", "Author", "address"),
+      col("totalGrant", "Grant", "amount"),
+      col("released", "Released", "amount"),
+      col("initialClaimed", "Initial claimed", "boolean"),
+    ],
+  },
+  {
+    id: "v2-milestones",
+    source: "v2",
+    entity: "milestoneRequests",
+    label: "Milestone proofs",
+    group: "Execution",
+    description: "Backer review requests, weight and grace deadlines.",
+    orderBy: "updatedAtBlock",
+    columns: [
+      col("ideaId", "Idea"),
+      col("roundId", "Round"),
+      col("stage", "Stage", "count"),
+      col("active", "Active", "boolean"),
+      col("backerApproveWeight", "Approve weight", "amount"),
+      col("backerRejectWeight", "Reject weight", "amount"),
+      col("graceDeadline", "Grace ends", "date"),
+    ],
+  },
+  {
+    id: "v2-distributions",
+    source: "v2",
+    entity: "distributions",
+    label: "Distributions",
+    group: "Execution",
+    description: "USDC transfers from settled grants.",
+    orderBy: "timestamp",
+    columns: [
+      col("roundId", "Round"),
+      col("ideaId", "Idea"),
+      col("amount", "Amount", "amount"),
+      col("timestamp", "Time", "date"),
+      col("txHash", "Transaction", "tx"),
+    ],
+  },
+  {
+    id: "v2-reviews",
+    source: "v2",
+    entity: "reviews",
+    label: "Idea reviews",
+    group: "People",
+    description: "Idea review notes and reviewer identities.",
+    orderBy: "timestamp",
+    columns: [
+      col("ideaId", "Idea"),
+      col("reviewer", "Reviewer", "address"),
+      col("comment", "Comment"),
+      col("timestamp", "Time", "date"),
+      col("txHash", "Transaction", "tx"),
+    ],
+  },
+  {
+    id: "v2-accounts",
+    source: "v2",
+    entity: "accounts",
+    label: "Accounts",
+    group: "People",
+    description: "Indexed participants and reputation progression.",
+    orderBy: "updatedAtBlock",
+    columns: [
+      col("address", "Account", "address"),
+      col("reputation", "Reputation", "count"),
+      col("winningVotes", "Winning votes", "count"),
+      col("createdIdeaCount", "Ideas", "count"),
+      col("isCurator", "Curator", "boolean"),
+      col("isReviewer", "Reviewer", "boolean"),
+    ],
+  },
+  {
+    id: "v3-communities",
+    source: "v3",
+    entity: "communities",
+    label: "Communities",
+    group: "Community",
+    description: "Factory-created communities, Hubs and treasuries.",
+    orderBy: "createdAt",
+    columns: [
+      col("communityId", "Community"),
+      col("name", "Name"),
+      col("active", "Active", "boolean"),
+      col("creator", "Creator", "address"),
+      col("treasury", "Treasury", "address"),
+      col("createdAt", "Created", "date"),
+    ],
+  },
+  {
+    id: "v3-members",
+    source: "v3",
+    entity: "communityMembers",
+    label: "Members",
+    group: "Community",
+    description: "Membership, admins, validators and staked USDC.",
+    orderBy: "updatedAt",
+    columns: [
+      col("community.name", "Community", "text", "community { name }"),
+      col("account", "Account", "address"),
+      col("active", "Active", "boolean"),
+      col("isAdmin", "Admin", "boolean"),
+      col("isValidator", "Validator", "boolean"),
+      col("membershipStake", "Stake", "amount"),
+    ],
+  },
+  {
+    id: "v3-proposals",
+    source: "v3",
+    entity: "communityProposals",
+    label: "Proposals",
+    group: "Governance",
+    description: "Admin/member binary and slate proposals with outcomes.",
+    orderBy: "updatedAt",
+    columns: [
+      col("community.name", "Community", "text", "community { name }"),
+      col("proposalId", "Proposal"),
+      col("mode", "Voting mode", "proposalMode"),
+      col("status", "Status", "status"),
+      col("round.roundId", "Slate round", "text", "round { roundId }"),
+      col("creator", "Creator", "address"),
+      col("yesVotes", "Binary yes", "amount"),
+      col("noVotes", "Binary no", "amount"),
+      col("settled", "Binary settled", "boolean"),
+      col("executionAmount", "Execution budget", "amount"),
+    ],
+  },
+  {
+    id: "v3-slate-rounds",
+    source: "v3",
+    entity: "communitySlateRounds",
+    label: "Slate rounds",
+    group: "Governance",
+    description: "Community slate elections and winning proposals.",
+    orderBy: "updatedAt",
+    columns: [
+      col("community.name", "Community", "text", "community { name }"),
+      col("roundId", "Round"),
+      col("origin", "Origin", "count"),
+      col("totalVotes", "Votes", "amount"),
+      col("winningProposalId", "Winner"),
+      col("winningVotes", "Winner votes", "amount"),
+      col("settled", "Settled", "boolean"),
+      col("executionAmount", "Execution budget", "amount"),
+      col("votingDeadline", "Deadline", "date"),
+    ],
+  },
+  {
+    id: "v3-binary-votes",
+    source: "v3",
+    entity: "communityBinaryVotes",
+    label: "Binary votes",
+    group: "Governance",
+    description: "Yes/no votes on binary community proposals.",
+    orderBy: "timestamp",
+    columns: [
+      col("round.roundId", "Round", "text", "round { roundId }"),
+      col("proposal.proposalId", "Proposal", "text", "proposal { proposalId }"),
+      col("voter", "Voter", "address"),
+      col("choice", "Choice", "count"),
+      col("amount", "Weight", "amount"),
+      col("timestamp", "Time", "date"),
+      col("txHash", "Transaction", "tx"),
+    ],
+  },
+  {
+    id: "v3-slate-votes",
+    source: "v3",
+    entity: "communitySlateVotes",
+    label: "Slate votes",
+    group: "Governance",
+    description: "Votes allocated to candidates in slate rounds.",
+    orderBy: "timestamp",
+    columns: [
+      col("proposal.proposalId", "Proposal", "text", "proposal { proposalId }"),
+      col("voter", "Voter", "address"),
+      col("amount", "Weight", "amount"),
+      col("timestamp", "Time", "date"),
+      col("txHash", "Transaction", "tx"),
+    ],
+  },
+  {
+    id: "v3-plans",
+    source: "v3",
+    entity: "communityExecutionPlans",
+    label: "Execution plans",
+    group: "Execution",
+    description: "20/40/40 budgets, supporters and milestone progress.",
+    orderBy: "updatedAt",
+    columns: [
+      col("community.name", "Community", "text", "community { name }"),
+      col("planId", "Plan"),
+      col("status", "Status", "status"),
+      col("budget", "Budget", "amount"),
+      col("releasedAmount", "Released", "amount"),
+      col("supporterCount", "Supporters", "count"),
+      col("currentMilestone", "Milestone", "count"),
+    ],
+  },
+  {
+    id: "v3-milestones",
+    source: "v3",
+    entity: "communityMilestoneReviews",
+    label: "Milestone reviews",
+    group: "Execution",
+    description: "Supporter approval weights, outcomes and released funds.",
+    orderBy: "updatedAt",
+    columns: [
+      col("plan.planId", "Plan", "text", "plan { planId }"),
+      col("milestone", "Stage", "count"),
+      col("yesWeight", "Approve", "amount"),
+      col("noWeight", "Reject", "amount"),
+      col("reviewerCount", "Reviewers", "count"),
+      col("approved", "Approved", "boolean"),
+      col("releasedAmount", "Released", "amount"),
+    ],
+  },
+  {
+    id: "v3-support",
+    source: "v3",
+    entity: "communityWinnerSupports",
+    label: "Winner supporters",
+    group: "Execution",
+    description: "Snapshot of eligible supporters for a winning proposal.",
+    orderBy: "id",
+    columns: [
+      col("plan.planId", "Plan", "text", "plan { planId }"),
+      col("supporter", "Supporter", "address"),
+      col("weight", "Weight", "amount"),
+    ],
+  },
+  {
+    id: "v3-refunds",
+    source: "v3",
+    entity: "communityExecutionRefundClaims",
+    label: "Execution refunds",
+    group: "Execution",
+    description: "Unused proposal budgets reclaimed by supporters.",
+    orderBy: "timestamp",
+    columns: [
+      col("plan.planId", "Plan", "text", "plan { planId }"),
+      col("supporter", "Supporter", "address"),
+      col("amount", "Refunded", "amount"),
+      col("timestamp", "Time", "date"),
+      col("txHash", "Transaction", "tx"),
+    ],
+  },
+  {
+    id: "v3-validator-decisions",
+    source: "v3",
+    entity: "communityValidatorDecisions",
+    label: "Validator decisions",
+    group: "Validation",
+    description: "Validator reviews of member-submitted proposals.",
+    orderBy: "timestamp",
+    columns: [
+      col("proposal.proposalId", "Proposal", "text", "proposal { proposalId }"),
+      col("validator", "Validator", "address"),
+      col("approved", "Approved", "boolean"),
+      col("timestamp", "Time", "date"),
+      col("txHash", "Transaction", "tx"),
+    ],
+  },
+  {
+    id: "v3-validator-epochs",
+    source: "v3",
+    entity: "communityValidatorEpoches",
+    label: "Validator epochs",
+    group: "Validation",
+    description: "Reward epochs, participation and finalization.",
+    orderBy: "updatedAt",
+    columns: [
+      col("community.name", "Community", "text", "community { name }"),
+      col("epochId", "Epoch"),
+      col("activeValidatorCount", "Validators", "count"),
+      col("rewardPerValidator", "Reward each", "amount"),
+      col("finalized", "Finalized", "boolean"),
+      col("endTime", "End", "date"),
+    ],
+  },
+  {
+    id: "v3-validator-rewards",
+    source: "v3",
+    entity: "communityValidatorRewardClaims",
+    label: "Validator rewards",
+    group: "Validation",
+    description: "USDC rewards claimed by validators.",
+    orderBy: "timestamp",
+    columns: [
+      col("epoch.epochId", "Epoch", "text", "epoch { epochId }"),
+      col("validator", "Validator", "address"),
+      col("amount", "Amount", "amount"),
+      col("timestamp", "Time", "date"),
+      col("txHash", "Transaction", "tx"),
+    ],
+  },
+  {
+    id: "v3-withdrawals",
+    source: "v3",
+    entity: "communityWithdrawals",
+    label: "Treasury withdrawals",
+    group: "Treasury",
+    description: "Multisig withdrawal requests and execution state.",
+    orderBy: "updatedAt",
+    columns: [
+      col("community.name", "Community", "text", "community { name }"),
+      col("requestId", "Request"),
+      col("recipient", "Recipient", "address"),
+      col("amount", "Amount", "amount"),
+      col("approvals", "Approvals", "count"),
+      col("executed", "Executed", "boolean"),
+      col("createdAt", "Created", "date"),
+    ],
+  },
+  {
+    id: "v3-admin-actions",
+    source: "v3",
+    entity: "communityAdminActions",
+    label: "Admin actions",
+    group: "Treasury",
+    description: "Multisig changes to community administration.",
+    orderBy: "updatedAt",
+    columns: [
+      col("community.name", "Community", "text", "community { name }"),
+      col("requestId", "Request"),
+      col("action", "Action", "count"),
+      col("target", "Target", "address"),
+      col("approvals", "Approvals", "count"),
+      col("executed", "Executed", "boolean"),
+      col("createdAt", "Created", "date"),
+    ],
+  },
+  {
+    id: "v3-hub-sources",
+    source: "v3",
+    entity: "communityHubSources",
+    label: "Hub sources",
+    group: "Infrastructure",
+    description: "Indexed CommunityHub data-source addresses.",
+    orderBy: "id",
+    columns: [
+      col("id", "Hub", "address"),
+      col("community.name", "Community", "text", "community { name }"),
+    ],
+  },
+  {
+    id: "v3-treasury-sources",
+    source: "v3",
+    entity: "communityTreasurySources",
+    label: "Treasury sources",
+    group: "Infrastructure",
+    description: "Indexed CommunityTreasury data-source addresses.",
+    orderBy: "id",
+    columns: [
+      col("id", "Treasury", "address"),
+      col("community.name", "Community", "text", "community { name }"),
+    ],
+  },
+  {
+    id: "v3-module-sources",
+    source: "v3",
+    entity: "communityModuleSources",
+    label: "Module sources",
+    group: "Infrastructure",
+    description: "Membership, proposal, voting and milestone module addresses.",
+    orderBy: "id",
+    columns: [
+      col("id", "Module", "address"),
+      col("kind", "Type", "status"),
+      col("community.name", "Community", "text", "community { name }"),
+    ],
+  },
+];
+
+export const datasetById = new Map(datasets.map((item) => [item.id, item]));
+
+export function buildDatasetQuery(dataset: Dataset, page = 0, pageSize = 25) {
+  const fields = [
+    ...new Set(["id", ...dataset.columns.map((column) => column.select)]),
+  ];
+  return `query ${dataset.source === "v2" ? "Funding" : "Community"}${dataset.label.replace(/[^a-zA-Z]/g, "")} {
+  _meta { block { number } hasIndexingErrors }
+  records: ${dataset.entity}(first: ${pageSize + 1}, skip: ${page * pageSize}, orderBy: ${dataset.orderBy}, orderDirection: desc) {
+    ${fields.join("\n    ")}
+  }
+}`;
+}
