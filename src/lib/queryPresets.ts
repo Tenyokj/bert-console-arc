@@ -12,7 +12,7 @@ export const queryPresets: QueryPreset[] = [
   {
     id: "v3-communities",
     label: "Communities",
-    description: "Latest V3.1 community deployments",
+    description: "Latest V3.2 community deployments",
     source: "v3",
     query:
       "query Communities {\n  communities(first: 10, orderBy: createdAt, orderDirection: desc) {\n    id\n    communityId\n    name\n    active\n    treasury\n    hub\n    createdAt\n  }\n}",

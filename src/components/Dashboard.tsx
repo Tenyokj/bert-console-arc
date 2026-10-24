@@ -177,7 +177,7 @@ export function Dashboard() {
         </div>
         <div className="metric-card">
           <div className="metric-top">
-            <span>V3.1 / COMMUNITIES</span>
+            <span>V3.2 / COMMUNITIES</span>
             <span className="metric-icon cyan">
               <Blocks size={18} />
             </span>
@@ -195,7 +195,7 @@ export function Dashboard() {
         </div>
         <div className="metric-card">
           <div className="metric-top">
-            <span>V3.1 / EXECUTION</span>
+            <span>V3.2 / EXECUTION</span>
             <span className="metric-icon pink">
               <ShieldCheck size={18} />
             </span>
@@ -409,7 +409,7 @@ export function Dashboard() {
                 {
                   key: "v3",
                   label: "Community indexer",
-                  sub: "V3.1 · Graph Studio",
+                  sub: "V3.2 · Graph Studio",
                   icon: Blocks,
                 },
               ] as const
@@ -453,7 +453,7 @@ export function Dashboard() {
         </section>
         <section className="surface-panel activity-panel">
           <SectionHeader
-            eyebrow="LATEST V3.1"
+            eyebrow="LATEST V3.2"
             title="Community activity"
             description="Recent proposals from the Community Layer."
             action={
@@ -565,7 +565,7 @@ export function Dashboard() {
         <span>
           <strong>Go deeper into the protocol</strong>
           <small>
-            Browse all 28 indexed V2.3 and V3.1 collections with filters,
+            Browse all 28 indexed V2.3 and V3.2 collections with filters,
             pagination and export.
           </small>
         </span>

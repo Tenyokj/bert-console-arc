@@ -356,7 +356,7 @@ function DatasetViewer({
           <Eyebrow>
             {dataset.source === "v2"
               ? "FUNDING LAYER · V2.3"
-              : "COMMUNITY LAYER · V3.1"}
+              : "COMMUNITY LAYER · V3.2"}
           </Eyebrow>
           <h2>
             {dataset.label}
@@ -559,7 +559,7 @@ export function DataCatalog() {
           <small>collections</small>
         </div>
         <div>
-          <span>COMMUNITY · V3.1</span>
+          <span>COMMUNITY · V3.2</span>
           <strong>
             {datasets.filter((item) => item.source === "v3").length}
           </strong>
@@ -582,7 +582,7 @@ export function DataCatalog() {
               className={source === "v3" ? "active" : ""}
               onClick={() => select("v3-communities")}
             >
-              V3.1 <span>Community</span>
+              V3.2 <span>Community</span>
             </button>
             <button
               className={source === "v2" ? "active" : ""}

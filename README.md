@@ -9,13 +9,13 @@
 - Protocol dApp: [bertdao.vercel.app](https://bertdao.vercel.app)
 - Developer docs: [BERT Console guide](https://bertdao-docs.vercel.app/#bert-console)
 
-Public, read-only observability interface for BERT on Arc Testnet. It uses the existing V2.3 and V3.1 Graph Studio subgraphs plus an Arc RPC endpoint. It does not connect a wallet or submit transactions.
+Public, read-only observability interface for BERT on Arc Testnet. It uses the existing V2.3 and V3.2 Graph Studio subgraphs plus an Arc RPC endpoint. It does not connect a wallet or submit transactions.
 
 ## Features
 
 - Overview with protocol treasury, rounds, communities, recent proposals, funding-target and seven-day activity charts, a lifecycle map and indexer progress. The funding bars compare requested minimums from the latest 20 ideas; they do not show money raised. The activity bars count records from the loaded recent sample by UTC day, not all onchain events.
 - V2.3 explorer for ideas, rounds, milestone requests and grant payouts.
-- V3.1 explorer for communities, proposals, slate rounds, execution plans, reviews, members and withdrawals. Community details include Hub, Treasury and creator addresses.
+- V3.2 explorer for communities, proposals, slate rounds, execution plans, reviews, members and withdrawals. Community details include Hub, Treasury and creator addresses.
 - Full data explorer for 28 indexed collections across both versions, including votes, pledges, refunds, validation, treasury actions and module sources. Each collection has on-demand pages of 25, current-page search, record inspection, address/transaction links, CSV export and a prefilled Query Studio link.
 - Deployment directory with canonical proxy/contract addresses and current implementation addresses read from EIP-1967 slots, explorer links and pause status for operational V2 proxies.
 - Query Studio with starter queries, GraphQL formatting, JSON variables, `Ctrl/Command + Enter`, multi-collection table/JSON responses (20 rows per table page), copyable query and cURL, result export and local query history.
@@ -23,7 +23,7 @@ Public, read-only observability interface for BERT on Arc Testnet. It uses the e
 
 The overview deliberately labels limited lists as recent samples. The `Members` tab counts at most 40 latest membership records across **all** communities, not the protocol-wide number of unique members or the total for one community. The Funding, Communities and Deployments tables show six loaded records per page. Data Explorer requests indexed lists in server-side pages of 25; its search and CSV export apply to the current page. Use Query Studio for custom filters and full historical analysis.
 
-In V3.1, `Binary yes/no` applies only to binary proposals. Slate votes are allocated to candidates: the Slate rounds tab shows total stake across candidates, the winning candidate's stake and the execution budget after settlement. Before settlement, budget is pending. The current subgraph exposes individual slate votes in Data Explorer; it does not provide an aggregate weight for every non-winning candidate in the proposal summary. The Communities tab loads only the latest 16 slate rounds, so use Data Explorer for older rounds.
+In V3.2, `Binary yes/no` applies only to binary proposals. Slate votes are allocated to candidates: the Slate rounds tab shows total stake across candidates, the winning candidate's stake and the execution budget after settlement. Before settlement, budget is pending. The current subgraph exposes individual slate votes in Data Explorer; it does not provide an aggregate weight for every non-winning candidate in the proposal summary. The Communities tab loads only the latest 16 slate rounds, so use Data Explorer for older rounds.
 
 ## Data boundaries
 
@@ -35,7 +35,7 @@ The current Graph Studio **development** URLs are limited to 3,000 queries per d
 
 | Route | Purpose |
 | --- | --- |
-| `/api/summary` | Recent V2.3/V3.1 dashboard data with a shared cache. |
+| `/api/summary` | Recent V2.3/V3.2 dashboard data with a shared cache. |
 | `/api/health` | Arc RPC and both indexer head blocks. |
 | `/api/records` | Paginated Graph collections for Data Explorer. |
 | `/api/contracts` | Read-only proxy implementation and pause checks. |
@@ -75,7 +75,7 @@ The dashboard uses short shared caches and a three-minute refresh cycle to respe
 
 - Arc Testnet RPC: `https://arc-testnet.drpc.org`
 - V2.3: `https://api.studio.thegraph.com/query/1742046/bert-arc-testnet/v0.3.0`
-- V3.1: `https://api.studio.thegraph.com/query/1742046/bert-v-3-1-arc-testnet/v3.1.0`
+- V3.2: `https://api.studio.thegraph.com/query/1742046/bert-v-3-1-arc-testnet/v3.2.0`
 - Contract address references: [BERT Core deployment record](https://github.com/Tenyokj/bert-core-arc/blob/arc-usdc-migration/deployments/arc-testnet-v3.json)
 
 This is testnet information and may lag behind the chain while the subgraphs index new blocks.
@@ -83,3 +83,13 @@ This is testnet information and may lag behind the chain while the subgraphs ind
 ## Contributing and security
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for contribution workflow and [SECURITY.md](./SECURITY.md) for private vulnerability reporting. BERT Console is licensed under [GPL-3.0](./LICENSE), like the other BERT repositories.
+
+## Current and historical Communities
+
+The current V3 graph endpoint is **v3.2.0**, retaining original V3.1 Factory
+history alongside V3.2. Labels identify the current Community Layer, not an
+upgrade of every indexed Community. Deployments lists both generations.
+New V3.2 payments require fresh Admin quorum; original V3.1 Managers retain
+their earlier automatic-payment policy. Console remains **V0.1.0 Beta**.
+If Vercel already defines `BERT_V3_SUBGRAPH_URL`, update it to the v3.2.0
+endpoint and redeploy; explicit environment values override code defaults.

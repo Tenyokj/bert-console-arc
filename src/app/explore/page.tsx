@@ -4,7 +4,7 @@ import { DataCatalog } from "@/components/DataCatalog";
 export const metadata: Metadata = {
   title: "Data Explorer",
   description:
-    "Browse paginated BERT V2.3 and V3.1 indexed records on Arc Testnet.",
+    "Browse paginated BERT V2.3 and V3.2 indexed records on Arc Testnet.",
   alternates: { canonical: "/explore" },
 };
 

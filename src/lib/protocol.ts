@@ -1,5 +1,11 @@
 export const monitoredProxies = [
   {
+    label: "V3.2 CommunityFactory",
+    address: "0xf793786BCecfbfE35a22E36180032b32BD5208Ba",
+    group: "V3.2",
+    pausable: false,
+  },
+  {
     label: "V3.1 CommunityFactory",
     address: "0xe16Cd61a21feA97393e6eEE3A7F7A26828021dD0",
     group: "V3.1",
@@ -65,7 +71,7 @@ export const protocol = {
       "https://api.studio.thegraph.com/query/1742046/bert-arc-testnet/v0.3.0",
     v3:
       process.env.BERT_V3_SUBGRAPH_URL ??
-      "https://api.studio.thegraph.com/query/1742046/bert-v-3-1-arc-testnet/v3.1.0",
+      "https://api.studio.thegraph.com/query/1742046/bert-v-3-1-arc-testnet/v3.2.0",
   },
   links: {
     explorer: "https://testnet.arcscan.app",
@@ -78,6 +84,36 @@ export const protocol = {
   },
   contracts: [
     ...monitoredProxies,
+    {
+      label: "V3.2 TreasuryDeployer",
+      address: "0x374D742CC904edC4Dc09Bfd6BC941519969C1adf",
+      group: "V3.2",
+    },
+    {
+      label: "V3.2 MembershipModuleDeployer",
+      address: "0x5196CC82fc05e6b4623c381a944a8D24b02984dd",
+      group: "V3.2",
+    },
+    {
+      label: "V3.2 ProposalModuleDeployer",
+      address: "0x5286B45c3DA60F7341F3f0147163c6B42FeD01a3",
+      group: "V3.2",
+    },
+    {
+      label: "V3.2 VotingModuleDeployer",
+      address: "0x9D6cef8dEC24ffea29ed1319ebc4E0d729DCe25F",
+      group: "V3.2",
+    },
+    {
+      label: "V3.2 MilestoneModuleDeployer",
+      address: "0xB1D4A3d54a0E7bC1CCA66F973A08b25F99FD37bf",
+      group: "V3.2",
+    },
+    {
+      label: "V3.2 AdminActions library",
+      address: "0x4755E0bc1CB4ffB958595d40A55d1F63862bC815",
+      group: "V3.2",
+    },
     {
       label: "Arc native USDC",
       address: "0x3600000000000000000000000000000000000000",

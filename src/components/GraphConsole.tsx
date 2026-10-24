@@ -387,7 +387,7 @@ export function GraphConsole() {
         <span className="studio-command-method">POST</span>
         <code>/api/graphql</code>
         <span className="studio-command-source">
-          {source === "v3" ? "V3.1 Community" : "V2.3 Funding"}
+          {source === "v3" ? "V3.2 Community" : "V2.3 Funding"}
         </span>
         <div>
           <button
@@ -437,7 +437,7 @@ export function GraphConsole() {
                 <Braces size={16} />
               </span>
               <span>
-                V3.1 Community<small>Community Layer</small>
+                V3.2 Community<small>Community Layer</small>
               </span>
               <i className={health?.v3.ok ? "small-dot ok" : "small-dot"} />
             </button>
@@ -521,7 +521,7 @@ export function GraphConsole() {
               </div>
               <div className="editor-actions">
                 <span className="editor-source-label">
-                  {source === "v3" ? "V3.1" : "V2.3"}
+                  {source === "v3" ? "V3.2" : "V2.3"}
                 </span>
                 <button
                   type="button"

@@ -542,7 +542,7 @@ export function CommunitiesPage() {
   return (
     <div className="page-enter community-page">
       <PageTitle
-        overline="COMMUNITY LAYER · V3.1"
+        overline="COMMUNITY LAYER · V3.2"
         title="Community intelligence"
         description="Watch new communities, governance proposals, milestone reviews and treasury execution."
         icon={Blocks}
@@ -1259,7 +1259,7 @@ export function DeploymentsPage() {
             <span className="metric-icon violet">
               <Blocks size={21} />
             </span>
-            <strong>V3.1 Communities</strong>
+            <strong>V3.2 Communities</strong>
             <p>
               Indexed block {formatCount(summary?.v3.data?._meta.block.number)}
             </p>
@@ -1369,7 +1369,7 @@ export function DeploymentsPage() {
               <td>
                 <StateBadge
                   label={item.group}
-                  tone={item.group === "V3.1" ? "info" : "neutral"}
+                  tone={item.group === "V3.2" ? "info" : "neutral"}
                 />
               </td>
               <td className="muted">{item.kind}</td>

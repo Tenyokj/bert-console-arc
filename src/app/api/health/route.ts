@@ -71,7 +71,7 @@ export async function GET(request: NextRequest) {
       fresh,
     ),
     check(
-      "V3.1",
+      "V3.2",
       protocol.subgraphs.v3,
       { query: "{ _meta { block { number } } }" },
       fresh,
