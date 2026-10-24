@@ -39,7 +39,7 @@ try {
   await desktop.getByRole("textbox", { name: "Search loaded ideas..." }).fill(ideaId);
   assert.ok((await desktop.locator(".data-table tbody tr").count()) > 0);
 
-  await desktop.getByRole("link", { name: "V3.1 Communities" }).click();
+  await desktop.getByRole("link", { name: "V3.2 Communities" }).click();
   await desktop.getByRole("heading", { name: "Community explorer" }).waitFor();
   await desktop.locator(".clickable-row td").first().click();
   await desktop.locator(".detail-drawer h2").waitFor();
@@ -136,7 +136,7 @@ try {
   assert.ok(width.document <= width.viewport, `Mobile horizontal overflow: ${JSON.stringify(width)}`);
   await mobile.screenshot({ path: "/tmp/bert-console-mobile.png", fullPage: true });
   await mobile.getByRole("button", { name: "Open navigation" }).click();
-  await mobile.getByRole("link", { name: "V3.1 Communities" }).click();
+  await mobile.getByRole("link", { name: "V3.2 Communities" }).click();
   await mobile.getByRole("heading", { name: "Community explorer" }).waitFor();
   const mobileWidth = await mobile.evaluate(() => ({ viewport: window.innerWidth, document: document.documentElement.scrollWidth }));
   assert.ok(mobileWidth.document <= mobileWidth.viewport, `Community mobile overflow: ${JSON.stringify(mobileWidth)}`);

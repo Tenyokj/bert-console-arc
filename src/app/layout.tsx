@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: "%s | BERT Console",
   },
   description:
-    "Explore indexed BERT V2.3 funding and V3.1 community activity on Arc Testnet. Public read-only beta.",
+    "Explore indexed BERT V2.3 funding and V3.2 community activity on Arc Testnet. Public read-only beta.",
   icons: { icon: "/bert-logo.png", apple: "/bert-logo.png" },
   openGraph: {
     title: "BERT Console | V0.1.0 Beta",

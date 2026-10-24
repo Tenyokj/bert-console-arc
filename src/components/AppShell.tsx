@@ -32,7 +32,7 @@ import { useProtocol } from "@/components/ProtocolProvider";
 const nav = [
   { href: "/", label: "Overview", icon: LayoutDashboard },
   { href: "/funding", label: "V2.3 Funding", icon: Wallet },
-  { href: "/communities", label: "V3.1 Communities", icon: Boxes },
+  { href: "/communities", label: "V3.2 Communities", icon: Boxes },
   { href: "/explore", label: "Data Explorer", icon: Database },
   { href: "/deployments", label: "Deployments", icon: ShieldCheck },
   { href: "/console", label: "Query Studio", icon: Code2 },
@@ -259,7 +259,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <span>© 2026 BERT DAO · Open protocol data</span>
           <span>
             <Activity size={13} /> Arc Testnet block{" "}
-            {formatCount(health?.rpc.block)} <i /> Indexed V3.1 block{" "}
+            {formatCount(health?.rpc.block)} <i /> Indexed V3.2 block{" "}
             {formatCount(summary?.v3.data?._meta.block.number)}
           </span>
           <div>

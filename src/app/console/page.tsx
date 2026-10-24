@@ -4,7 +4,7 @@ import { GraphConsole } from "@/components/GraphConsole";
 export const metadata: Metadata = {
   title: "Query Studio",
   description:
-    "Run read-only GraphQL queries against BERT Arc Testnet V2.3 and V3.1 subgraphs.",
+    "Run read-only GraphQL queries against BERT Arc Testnet V2.3 and V3.2 subgraphs.",
   alternates: { canonical: "/console" },
 };
 
