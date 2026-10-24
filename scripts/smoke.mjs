@@ -46,13 +46,18 @@ try {
   await desktop.getByRole("button", { name: "Close details" }).click();
   await desktop.getByRole("tab", { name: /Proposals/ }).click();
   assert.ok((await desktop.locator(".data-table tbody tr").count()) > 0);
-  const winnerRow = desktop.locator(".data-table tbody tr", { hasText: "Proposal #2" });
-  assert.match(await winnerRow.textContent(), /10\s*USDC winner votes/);
-  await winnerRow.getByRole("button", { name: /#1/ }).click();
+  // Proposal/round IDs are local to a Community, not globally unique.
+  const winnerRow = desktop.locator(".data-table tbody tr", { hasText: "winner votes" }).first();
+  const winnerLabel = (await winnerRow.locator("td").nth(0).locator("strong").textContent()).trim();
+  const roundLink = winnerRow.locator("button.table-link");
+  const roundLabel = (await roundLink.textContent()).trim();
+  const winnerVotes = (await winnerRow.locator("td").nth(4).textContent()).replace(/\s+/g, " ").trim();
+  assert.match(winnerVotes, /USDC winner votes/);
+  await roundLink.click();
   assert.match(await desktop.getByRole("tab", { name: /Slate rounds/ }).getAttribute("class"), /active/);
-  await desktop.getByText("Round #1").first().waitFor();
-  assert.match(await desktop.locator(".data-table tbody tr").first().textContent(), /10\s*USDC/);
-  await desktop.getByText("Proposal #2").first().waitFor();
+  await desktop.getByText(`Round ${roundLabel}`, { exact: true }).first().waitFor();
+  assert.ok((await desktop.locator(".data-table tbody tr").first().textContent()).replace(/\s+/g, " ").includes(winnerVotes));
+  await desktop.getByText(winnerLabel, { exact: true }).first().waitFor();
   await desktop.getByRole("tab", { name: /Members/ }).click();
   await desktop.getByText(/Not a protocol-wide total/).waitFor();
   assert.ok((await desktop.locator(".data-table tbody tr").count()) <= 6);
