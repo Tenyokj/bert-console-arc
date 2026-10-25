@@ -1369,7 +1369,7 @@ export function DeploymentsPage() {
               <td>
                 <StateBadge
                   label={item.group}
-                  tone={item.group === "V3.2" ? "info" : "neutral"}
+                  tone={item.group.startsWith("V3.2") ? "info" : "neutral"}
                 />
               </td>
               <td className="muted">{item.kind}</td>

@@ -75,7 +75,7 @@ The dashboard uses short shared caches and a three-minute refresh cycle to respe
 
 - Arc Testnet RPC: `https://arc-testnet.drpc.org`
 - V2.3: `https://api.studio.thegraph.com/query/1742046/bert-arc-testnet/v0.3.0`
-- V3.2: `https://api.studio.thegraph.com/query/1742046/bert-v-3-1-arc-testnet/v3.2.0`
+- V3.2: `https://api.studio.thegraph.com/query/1742046/bert-v-3-1-arc-testnet/v3.2.1`
 - Contract address references: [BERT Core deployment record](https://github.com/Tenyokj/bert-core-arc/blob/arc-usdc-migration/deployments/arc-testnet-v3.json)
 
 This is testnet information and may lag behind the chain while the subgraphs index new blocks.
@@ -86,10 +86,14 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for contribution workflow and [SECURITY
 
 ## Current and historical Communities
 
-The current V3 graph endpoint is **v3.2.0**, retaining original V3.1 Factory
-history alongside V3.2. Labels identify the current Community Layer, not an
-upgrade of every indexed Community. Deployments lists both generations.
+The current V3 graph endpoint is **v3.2.1**, retaining original V3.1 Factory
+history alongside V3.2.0 and the V3.2.1 hotfix Factory. Labels identify the current Community Layer, not an
+upgrade of every indexed Community. Deployments lists all three modular generations, including live proxy implementation/admin reads.
 New V3.2 payments require fresh Admin quorum; original V3.1 Managers retain
 their earlier automatic-payment policy. Console remains **V0.1.0 Beta**.
-If Vercel already defines `BERT_V3_SUBGRAPH_URL`, update it to the v3.2.0
+If Vercel already defines `BERT_V3_SUBGRAPH_URL`, update it to the v3.2.1
 endpoint and redeploy; explicit environment values override code defaults.
+
+V3.2.1 includes Manager 2.0.1's fixed correction deadline and permissionless expiry
+of abandoned correction cooldowns. Existing immutable V3.2.0 Managers remain
+affected. See the [receipt-backed hotfix record](https://github.com/Tenyokj/bert-core-arc/blob/arc-usdc-migration/docs/V3.2.1-ARC-TESTNET-RELEASE.md).

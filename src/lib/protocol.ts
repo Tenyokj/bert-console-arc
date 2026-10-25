@@ -1,8 +1,14 @@
 export const monitoredProxies = [
   {
-    label: "V3.2 CommunityFactory",
+    label: "V3.2.1 CommunityFactory",
+    address: "0x23E023E0D8B3436319BC6e5e72615Bc7A0c6234E",
+    group: "V3.2.1",
+    pausable: false,
+  },
+  {
+    label: "V3.2.0 CommunityFactory (historical)",
     address: "0xf793786BCecfbfE35a22E36180032b32BD5208Ba",
-    group: "V3.2",
+    group: "V3.2.0",
     pausable: false,
   },
   {
@@ -71,7 +77,7 @@ export const protocol = {
       "https://api.studio.thegraph.com/query/1742046/bert-arc-testnet/v0.3.0",
     v3:
       process.env.BERT_V3_SUBGRAPH_URL ??
-      "https://api.studio.thegraph.com/query/1742046/bert-v-3-1-arc-testnet/v3.2.0",
+      "https://api.studio.thegraph.com/query/1742046/bert-v-3-1-arc-testnet/v3.2.1",
   },
   links: {
     explorer: "https://testnet.arcscan.app",
@@ -85,34 +91,64 @@ export const protocol = {
   contracts: [
     ...monitoredProxies,
     {
-      label: "V3.2 TreasuryDeployer",
+      label: "V3.2.1 TreasuryDeployer",
+      address: "0x5D11c6780FA89aF62b7A0B28ca502aaBBE81D11d",
+      group: "V3.2.1",
+    },
+    {
+      label: "V3.2.1 MembershipModuleDeployer",
+      address: "0x04A432bbb627B276138c544d83079f0494634dC5",
+      group: "V3.2.1",
+    },
+    {
+      label: "V3.2.1 ProposalModuleDeployer",
+      address: "0x22a7a329d5fe207de241f1B4a53A2A3E757D99b9",
+      group: "V3.2.1",
+    },
+    {
+      label: "V3.2.1 VotingModuleDeployer",
+      address: "0x75D5F8343580c2b8570187785ba70fC8aBBbe9B5",
+      group: "V3.2.1",
+    },
+    {
+      label: "V3.2.1 MilestoneModuleDeployer",
+      address: "0x8E3EcA1AE38ACd266bB2A12eB4F2533211C36F46",
+      group: "V3.2.1",
+    },
+    {
+      label: "V3.2.1 AdminActions library",
+      address: "0xE0f9265aF9dFD29D259C468bCC1786AA47080089",
+      group: "V3.2.1",
+    },
+    {
+      label: "V3.2.0 TreasuryDeployer",
       address: "0x374D742CC904edC4Dc09Bfd6BC941519969C1adf",
-      group: "V3.2",
+      group: "V3.2.0",
     },
     {
-      label: "V3.2 MembershipModuleDeployer",
+      label: "V3.2.0 MembershipModuleDeployer",
       address: "0x5196CC82fc05e6b4623c381a944a8D24b02984dd",
-      group: "V3.2",
+      group: "V3.2.0",
     },
     {
-      label: "V3.2 ProposalModuleDeployer",
+      label: "V3.2.0 ProposalModuleDeployer",
       address: "0x5286B45c3DA60F7341F3f0147163c6B42FeD01a3",
-      group: "V3.2",
+      group: "V3.2.0",
     },
     {
-      label: "V3.2 VotingModuleDeployer",
+      label: "V3.2.0 VotingModuleDeployer",
       address: "0x9D6cef8dEC24ffea29ed1319ebc4E0d729DCe25F",
-      group: "V3.2",
+      group: "V3.2.0",
     },
     {
-      label: "V3.2 MilestoneModuleDeployer",
+      label: "V3.2.0 MilestoneModuleDeployer",
       address: "0xB1D4A3d54a0E7bC1CCA66F973A08b25F99FD37bf",
-      group: "V3.2",
+      group: "V3.2.0",
     },
     {
-      label: "V3.2 AdminActions library",
+      label: "V3.2.0 AdminActions library",
       address: "0x4755E0bc1CB4ffB958595d40A55d1F63862bC815",
-      group: "V3.2",
+      group: "V3.2.0",
     },
     {
       label: "Arc native USDC",
