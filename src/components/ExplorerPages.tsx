@@ -30,6 +30,7 @@ import {
 } from "@/components/ui";
 import { formatCount, formatDate, relativeTime } from "@/lib/format";
 import { protocol } from "@/lib/protocol";
+import { ConsoleTreasury } from "@/components/ConsoleTreasury";
 
 type LiveContractState = {
   checkedAt: string;
@@ -262,6 +263,7 @@ export function FundingPage() {
           icon={ShieldCheck}
         />
       </div>
+      <ConsoleTreasury />
       <section className="surface-panel explorer-panel">
         <SectionHeader
           eyebrow="ONCHAIN INDEX"

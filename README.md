@@ -80,6 +80,35 @@ The dashboard uses short shared caches and a three-minute refresh cycle to respe
 
 This is testnet information and may lag behind the chain while the subgraphs index new blocks.
 
+## Unreleased Treasury Accounting
+
+The `/funding` page includes a separate pinned RPC accounting panel, served by
+`GET /api/treasury` (optional positive uint256 `round` query). It distinguishes
+actual/recorded custody, reserve, earned revenue, other funds and surplus/shortfall.
+Legacy pools show revenue as unavailable, not zero. The indexed totals remain a
+separate source and may lag the RPC snapshot.
+
+After a V2.4 upgrade it can read current/scheduled policies, an older round's
+original Treasury and up to 16 fixed beneficiaries with pending/released payouts.
+Console stays read-only: no wallet, signing, collection or policy actions.
+The shared reader validates pool/token bindings, share totals and accounting
+invariants; identity getters alone are not an independent contract audit.
+
+`BERT_FUNDING_POOL_ADDRESS` optionally overrides the current Arc pool address;
+`BERT_ARC_RPC_URL` must point to chain 5042002. No public address changed here.
+Viem 2.57.11 is pinned for ABI decoding, matching the dApp version. Run
+`node --test scripts/treasury-revenue.test.mjs`, `npx tsc --noEmit`,
+`npm run lint` and `npm run build`. Six reader tests, TypeScript and lint pass.
+On November 24, Next.js and eslint-config-next were patched from 16.4.3 to
+16.4.6; the production build now passes without bypassing the security guard.
+Production-only npm audit reports zero findings; the full audit retains seven
+moderate findings in the development minimatch/TypeScript-ESLint chain. These
+are dated dependency checks, not an independent audit or a guarantee of safety.
+Desktop/mobile treasury smoke also passes, using a local-contract fixture for
+the modern readout, without wallet writes. Already published deployments require
+the reviewed patch to be deployed before they receive it.
+No public deployment or indexer change was performed.
+
 ## Contributing and security
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for contribution workflow and [SECURITY.md](./SECURITY.md) for private vulnerability reporting. BERT Console is licensed under [GPL-3.0](./LICENSE), like the other BERT repositories.
