@@ -84,8 +84,8 @@ This is testnet information and may lag behind the chain while the subgraphs ind
 
 FundingPool 2.0.0 and immutable ProtocolRevenueTreasury 1.0.0 are deployed on
 Arc Testnet. V2 Graph v0.4.0 and both client endpoints were verified November 24.
-The 2000-bps eligible-fee policy is scheduled but inactive; separate activation
-is possible at/after 2026-11-26 22:03:24 UTC. Treasury address:
+The 2000-bps eligible-fee policy is active since November 27, 2026, 10:03:38 UTC (block 74359134).
+RPC and V2 Graph/client proxies confirm the activation event and cleared schedule. Treasury address:
 `0xeCF9D2fD1914D1aFa124498931fdAA976D4e143b`. This is testnet, not APY or equity.
 
 The `/funding` page includes a separate pinned RPC accounting panel, served by
